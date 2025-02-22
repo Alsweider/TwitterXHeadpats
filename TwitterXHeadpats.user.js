@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name         TwitterXHeadpats
 // @namespace    http://tampermonkey.net/
-// @version      0.0.1
+// @version      0.0.2
 // @description  Replaces the heart under posts on X.com with a chibi girl enjoying headpats.
 // @author       Alsweider
 // @match        https://twitter.com/*
 // @match        https://x.com/*
 // @grant        none
-// @downloadURL https://update.greasyfork.org/scripts/527735/TwitterXHeadpats.user.js
-// @updateURL https://update.greasyfork.org/scripts/527735/TwitterXHeadpats.meta.js
+// @downloadURL  https://update.greasyfork.org/scripts/527735/TwitterXHeadpats.user.js
+// @updateURL    https://update.greasyfork.org/scripts/527735/TwitterXHeadpats.meta.js
 // ==/UserScript==
 
 (function() {
@@ -21,23 +21,33 @@
         const style = document.createElement("style");
         style.innerHTML = `
             [data-testid="like"], [data-testid="unlike"] {
-                background-image: url("${customImage}") !important;
-                background-size: 20px 20px;
-                background-repeat: no-repeat;
+                position: relative;
             }
 
             [data-testid="like"] svg, [data-testid="unlike"] svg {
-                opacity: 0 !important; /* Herz ausblenden */
+                opacity: 0;
+            }
+
+            [data-testid="like"]::after, [data-testid="unlike"]::after {
+                content: "";
+                display: inline-block;
+                width: 30px;
+                height: 30px;
+                background-image: url("${customImage}");
+                background-size: contain;
+                background-repeat: no-repeat;
+                position: absolute;
+                top: 50%;
+                left: 10%;
+                transform: translate(-50%, -50%); // Zentriert das Bild über dem ursprünglichen Symbol
             }
         `;
         document.head.appendChild(style);
     }
 
     // Dynamisches Laden sicherstellen
-    let observer = new MutationObserver(replaceLikeButton);
+    const observer = new MutationObserver(replaceLikeButton);
     observer.observe(document.body, { childList: true, subtree: true });
 
     replaceLikeButton();
 })();
-
-
