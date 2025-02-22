@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name         TwitterXHeadpats
 // @namespace    http://tampermonkey.net/
-// @version      0.0.2
+// @version      0.0.3
 // @description  Replaces the heart under posts on X.com with a chibi girl enjoying headpats.
 // @author       Alsweider
 // @match        https://twitter.com/*
 // @match        https://x.com/*
 // @grant        none
-// @downloadURL  https://update.greasyfork.org/scripts/527735/TwitterXHeadpats.user.js
-// @updateURL    https://update.greasyfork.org/scripts/527735/TwitterXHeadpats.meta.js
+// @downloadURL https://update.greasyfork.org/scripts/527735/TwitterXHeadpats.user.js
+// @updateURL https://update.greasyfork.org/scripts/527735/TwitterXHeadpats.meta.js
 // ==/UserScript==
 
 (function() {
@@ -31,14 +31,14 @@
             [data-testid="like"]::after, [data-testid="unlike"]::after {
                 content: "";
                 display: inline-block;
-                width: 30px;
-                height: 30px;
+                width: 20px;
+                height: 20px;
                 background-image: url("${customImage}");
                 background-size: contain;
                 background-repeat: no-repeat;
                 position: absolute;
                 top: 50%;
-                left: 10%;
+                left: 20%;
                 transform: translate(-50%, -50%); // Zentriert das Bild über dem ursprünglichen Symbol
             }
         `;
